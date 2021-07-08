@@ -5,10 +5,13 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
 axios.get('https://api.github.com/users/garrettwyien')
 .then(response => { 
   console.log(response.data)
+  let newCard = bioMaker(response)
   console.log(bioMaker(response))
+  cards.appendChild(newCard)
 })
 
 
@@ -25,6 +28,8 @@ axios.get('https://api.github.com/users/garrettwyien')
     and append the returned markup to the DOM as a child of .cards
 */
 
+const cards = document.querySelector('.cards')
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -36,7 +41,27 @@ axios.get('https://api.github.com/users/garrettwyien')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+
+function arraycardMaker(array) {
+  array.forEach( item => {
+    axios.get(`https://api.github.com/users/${item}`)
+      .then(response => { 
+        console.log(response.data)
+        let newCard = bioMaker(response)
+        console.log(bioMaker(response))
+        cards.appendChild(newCard)
+})
+  })
+}
+
+arraycardMaker(followersArray)
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -81,7 +106,6 @@ function bioMaker(object) {
   followers.textContent = `Followers: ${object.data.followers}`
   following.textContent = `Following: ${object.data.following}`
   bio.textContent = `Bio: ${object.data.bio}`
-
 
   card.appendChild(avatar)
   card.appendChild(info)
