@@ -1,8 +1,24 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const garrett = axios.get('https://api.github.com/users/garrettwyien')
+.then(response => { 
+  response.data.forEach( item => {
+    let newArray = []
+    newArray.push(item)
+  })
+})
+.catch(err => {
+  console.log(err);
+})
+.finally(() => {
+  console.log('done');
+})
+console.log(garrett)
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +65,42 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function bioMaker(object) {
+  const card = document.createElement('div')
+  const avatar = document.createElement('img')
+  const info = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const gitAdd = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  card.appendChild(avatar)
+  card.appendChild(info)
+  info.appendChild(name)
+  info.appendChild(username)
+  info.appendChild(location)
+  info.appendChild(profile)
+  profile.appendChild(gitAdd)
+  info.appendChild(followers)
+  info.appendChild(following)
+  info.appendChild(bio)
+
+  card.classList.add('card')
+  info.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+  
+  console.log(object)
+  return card
+
+}
+
+console.log(bioMaker(garrett))
 
 /*
   List of LS Instructors Github username's:
