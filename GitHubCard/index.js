@@ -5,20 +5,12 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const garrett = axios.get('https://api.github.com/users/garrettwyien')
+axios.get('https://api.github.com/users/garrettwyien')
 .then(response => { 
-  response.data.forEach( item => {
-    let newArray = []
-    newArray.push(item)
-  })
+  console.log(response.data)
+  console.log(bioMaker(response))
 })
-.catch(err => {
-  console.log(err);
-})
-.finally(() => {
-  console.log('done');
-})
-console.log(garrett)
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -79,6 +71,18 @@ function bioMaker(object) {
   const following = document.createElement('p')
   const bio = document.createElement('p')
 
+  avatar.setAttribute('src', `${object.data.avatar_url}`)
+  gitAdd.setAttribute('href', `${object.data.html_url}`)
+
+  name.textContent = `${object.data.name}`
+  username.textContent = `${object.data.login}`
+  location.textContent = `Location: ${object.data.location}`
+  profile.textContent = `Profile: ${object.data.html_url}`
+  followers.textContent = `Followers: ${object.data.followers}`
+  following.textContent = `Following: ${object.data.following}`
+  bio.textContent = `Bio: ${object.data.bio}`
+
+
   card.appendChild(avatar)
   card.appendChild(info)
   info.appendChild(name)
@@ -95,12 +99,11 @@ function bioMaker(object) {
   name.classList.add('name')
   username.classList.add('username')
   
-  console.log(object)
+
   return card
 
 }
 
-console.log(bioMaker(garrett))
 
 /*
   List of LS Instructors Github username's:
